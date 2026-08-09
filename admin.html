@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GoGuide - Admin</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+    <div class="logo">Go<span>Guide</span></div>
+
+    <nav>
+        <a href="index.html">Website</a>
+        <a href="results.html">Udhëtimet</a>
+    </nav>
+
+    <button class="login">Admin</button>
+</header>
+
+
+<main class="admin">
+
+    <h1>Paneli GoGuide</h1>
+    <p class="admin-subtitle">
+        Menaxho linjat, oraret dhe çmimet.
+    </p>
+
+
+    <section class="admin-grid">
+
+        <div class="admin-card">
+            <span>🚌</span>
+            <h2 id="total-trips">0</h2>
+            <p>Udhëtime</p>
+        </div>
+
+        <div class="admin-card">
+            <span>🎫</span>
+            <h2 id="total-bookings">0</h2>
+            <p>Rezervime</p>
+        </div>
+
+        <div class="admin-card">
+            <span>💶</span>
+            <h2 id="total-sales">0€</h2>
+            <p>Shitje</p>
+        </div>
+
+    </section>
+
+
+    <section class="admin-form">
+
+        <h2>Shto udhëtim të ri</h2>
+
+        <div class="form-grid">
+
+            <div>
+                <label>Nga</label>
+                <input id="new-from" type="text" placeholder="Tiranë">
+            </div>
+
+            <div>
+                <label>Për</label>
+                <input id="new-to" type="text" placeholder="Budva">
+            </div>
+
+            <div>
+                <label>Ora e nisjes</label>
+                <input id="new-time" type="time">
+            </div>
+
+            <div>
+                <label>Çmimi (€)</label>
+                <input id="new-price" type="number" placeholder="25">
+            </div>
+
+            <div>
+                <label>Vendet</label>
+                <input id="new-seats" type="number" placeholder="50">
+            </div>
+
+        </div>
+
+        <button class="add-trip" onclick="addTrip()">
+            + Shto udhëtimin
+        </button>
+
+    </section>
+
+
+    <section class="trip-list">
+
+        <h2>Udhëtimet</h2>
+
+        <div id="trips"></div>
+
+    </section>
+
+</main>
+
+
+<script>
+
+let trips = JSON.parse(localStorage.getItem("goguideTrips")) || [
+    {
+        from: "Tiranë",
+        to: "Budva",
+        time: "08:00",
+        price: 25,
+        seats: 50
+    },
+    {
+        from: "Tiranë",
+        to: "Budva",
+        time: "13:45",
+        price: 25,
+        seats: 50
+    }
+];
+
+
+function saveTrips() {
+    localStorage.setItem(
+        "goguideTrips",
+        JSON.stringify(trips)
+    );
+}
+
+
+function displayTrips() {
+
+    const container = document.getElementById("trips");
+
+    container.innerHTML = "";
+
+    trips.forEach((trip, index) => {
+
+        const div = document.createElement("div");
+
+        div.className = "admin-trip";
+
+        div.innerHTML = `
+            <div>
+                <strong>
+                    ${trip.from} → ${trip.to}
+                </strong>
+
+                <p>
+                    Nisja: ${trip.time}
+                    | ${trip.seats} vende
+                </p>
+            </div>
+
+            <div>
+                <strong>${trip.price}€</strong>
+
+                <button onclick="deleteTrip(${index})">
+                    Fshi
+                </button>
+            </div>
+        `;
+
+        container.appendChild(div);
+
+    });
+
+    document.getElementById("total-trips").innerText =
+        trips.length;
+}
+
+
+function addTrip() {
+
+    const from =
+        document.getElementById("new-from").value;
+
+    const to =
+        document.getElementById("new-to").value;
+
+    const time =
+        document.getElementById("new-time").value;
+
+    const price =
+        document.getElementById("new-price").value;
+
+    const seats =
+        document.getElementById("new-seats").value;
+
+
+    if (!from || !to || !time || !price || !seats) {
+
+        alert("Plotëso të gjitha fushat.");
+
+        return;
+    }
+
+
+    trips.push({
+
+        from: from,
+        to: to,
+        time: time,
+        price: Number(price),
+        seats: Number(seats)
+
+    });
+
+
+    saveTrips();
+
+    displayTrips();
+
+
+    document.getElementById("new-from").value = "";
+    document.getElementById("new-to").value = "";
+    document.getElementById("new-time").value = "";
+    document.getElementById("new-price").value = "";
+    document.getElementById("new-seats").value = "";
+
+}
+
+
+function deleteTrip(index) {
+
+    trips.splice(index, 1);
+
+    saveTrips();
+
+    displayTrips();
+
+}
+
+
+displayTrips();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="sq">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>GoGuide - Rezultatet</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">
+        Go<span>Guide</span>
+    </div>
+
+    <nav>
+        <a href="index.html">Kërko</a>
+        <a href="#">Destinacionet</a>
+        <a href="#">Kontakt</a>
+    </nav>
+
+    <button class="login">
+        Hyr
+    </button>
+
+</header>
+
+
+<main>
+
+<section class="results">
+
+    <h1>Udhëtimet e disponueshme</h1>
+
+    <p id="route"></p>
+
+
+    <div class="trip">
+
+        <div class="trip-time">
+
+            <strong>08:00</strong>
+
+            <span>Tiranë</span>
+
+        </div>
+
+
+        <div class="trip-line">
+
+            ───────── 🚌 ─────────
+
+        </div>
+
+
+        <div class="trip-time">
+
+            <strong>13:30</strong>
+
+            <span>Budva</span>
+
+        </div>
+
+
+        <div class="price">
+
+            <strong>25€</strong>
+
+            <button onclick="bookTrip()">
+                Rezervo
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div class="trip">
+
+        <div class="trip-time">
+
+            <strong>13:45</strong>
+
+            <span>Tiranë</span>
+
+        </div>
+
+
+        <div class="trip-line">
+
+            ───────── 🚌 ─────────
+
+        </div>
+
+
+        <div class="trip-time">
+
+            <strong>19:15</strong>
+
+            <span>Budva</span>
+
+        </div>
+
+
+        <div class="price">
+
+            <strong>25€</strong>
+
+            <button onclick="bookTrip()">
+                Rezervo
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<script>
+
+const from = localStorage.getItem("from");
+const to = localStorage.getItem("to");
+const date = localStorage.getItem("date");
+
+document.getElementById("route").innerHTML =
+    ${from} → ${to} | ${date};
+
+
+function bookTrip() {
+
+    window.location.href = "booking.html";
+
+}
+
+</script>
+
+</body>
+
+</html>

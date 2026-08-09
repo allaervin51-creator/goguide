@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GoGuide - Rezervimi</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+    <div class="logo">Go<span>Guide</span></div>
+
+    <nav>
+        <a href="index.html">Kërko</a>
+        <a href="results.html">Udhëtimet</a>
+        <a href="#">Kontakt</a>
+    </nav>
+
+    <button class="login">Hyr</button>
+</header>
+
+<main>
+
+<section class="booking">
+
+    <h1>Rezervo udhëtimin</h1>
+
+    <p id="booking-route"></p>
+
+    <div class="booking-container">
+
+        <div class="passenger-form">
+
+            <h2>Të dhënat e pasagjerit</h2>
+
+            <label>Emri</label>
+            <input type="text" id="name" placeholder="Emri">
+
+            <label>Mbiemri</label>
+            <input type="text" id="surname" placeholder="Mbiemri">
+
+            <label>Numri i telefonit</label>
+            <input type="tel" id="phone" placeholder="+355 ...">
+
+            <label>Email</label>
+            <input type="email" id="email" placeholder="email@example.com">
+
+        </div>
+
+
+        <div class="seat-section">
+
+            <h2>Zgjidh vendin</h2>
+
+            <div class="bus">
+
+                <div class="driver">
+                    🚍 Shoferi
+                </div>
+
+                <div class="seats">
+
+                    <button class="seat">1</button>
+                    <button class="seat">2</button>
+
+                    <button class="seat">3</button>
+                    <button class="seat">4</button>
+
+                    <button class="seat">5</button>
+                    <button class="seat">6</button>
+
+                    <button class="seat">7</button>
+                    <button class="seat">8</button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="booking-summary">
+
+        <h2>Përmbledhja</h2>
+
+        <p>Udhëtimi: <strong id="summary-route"></strong></p>
+
+        <p>Vendi: <strong id="selected-seat">Nuk është zgjedhur</strong></p>
+
+        <p>Çmimi: <strong>25€</strong></p>
+
+        <button id="continue-button">
+            Vazhdo me rezervimin
+        </button>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<script>
+
+const from = localStorage.getItem("from");
+const to = localStorage.getItem("to");
+const date = localStorage.getItem("date");
+
+document.getElementById("booking-route").innerText =
+    ${from} → ${to} | ${date};
+
+document.getElementById("summary-route").innerText =
+    ${from} → ${to};
+
+const seats = document.querySelectorAll(".seat");
+const selectedSeat = document.getElementById("selected-seat");
+
+let currentSeat = null;
+
+seats.forEach(seat => {
+
+    seat.addEventListener("click", function () {
+
+        seats.forEach(s => s.classList.remove("selected"));
+
+        this.classList.add("selected");
+
+        currentSeat = this.innerText;
+
+        selectedSeat.innerText = currentSeat;
+
+    });
+
+});
+
+
+document.getElementById("continue-button")
+.addEventListener("click", function () {
+
+    const name = document.getElementById("name").value;
+    const surname = document.getElementById("surname").value;
+    const phone = document.getElementById("phone").value;
+    const email = document.getElementById("email").value;
+
+    if (!name || !surname || !phone || !email || !currentSeat) {
+
+        alert("Ju lutem plotësoni të gjitha të dhënat dhe zgjidhni vendin.");
+
+        return;
+    }
+
+    localStorage.setItem("passengerName", name);
+    localStorage.setItem("passengerSurname", surname);
+    localStorage.setItem("passengerPhone", phone);
+    localStorage.setItem("passengerEmail", email);
+    localStorage.setItem("seat", currentSeat);
+
+    window.location.href = "ticket.html";
+
+});
+
+</script>
+
+</body>
+</html>

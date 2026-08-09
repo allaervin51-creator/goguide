@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>GoGuide - Bileta ime</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">
+        Go<span>Guide</span>
+    </div>
+
+    <nav>
+        <a href="index.html">Kërko udhëtim</a>
+        <a href="results.html">Udhëtimet</a>
+    </nav>
+
+</header>
+
+
+<main>
+
+<section class="ticket-page">
+
+    <div class="success">
+        ✓
+    </div>
+
+    <h1>Rezervimi u krye!</h1>
+
+    <p class="success-text">
+        Bileta juaj GoGuide është konfirmuar.
+    </p>
+
+
+    <div class="ticket">
+
+        <div class="ticket-header">
+
+            <div class="logo">
+                Go<span>Guide</span>
+            </div>
+
+            <span class="ticket-status">
+                KONFIRMUAR
+            </span>
+
+        </div>
+
+
+        <div class="route">
+
+            <div>
+                <small>NGA</small>
+                <strong id="ticket-from">Tiranë</strong>
+            </div>
+
+            <div class="arrow">
+                🚌
+            </div>
+
+            <div>
+                <small>PËR</small>
+                <strong id="ticket-to">Budva</strong>
+            </div>
+
+        </div>
+
+
+        <div class="ticket-info">
+
+            <div>
+                <small>DATA</small>
+                <strong id="ticket-date"></strong>
+            </div>
+
+            <div>
+                <small>VENDI</small>
+                <strong id="ticket-seat"></strong>
+            </div>
+
+            <div>
+                <small>PASAGJERI</small>
+                <strong id="ticket-name"></strong>
+            </div>
+
+            <div>
+                <small>ÇMIMI</small>
+                <strong>25€</strong>
+            </div>
+
+        </div>
+
+
+        <div class="ticket-number">
+
+            <span>Numri i biletës</span>
+
+            <strong id="ticket-number"></strong>
+
+        </div>
+
+
+        <div class="qr">
+            <div class="qr-box">
+                QR
+            </div>
+
+            <p>
+                Trego këtë kod gjatë udhëtimit.
+            </p>
+        </div>
+
+
+    </div>
+
+
+    <button class="home-button" onclick="goHome()">
+        Kthehu në faqen kryesore
+    </button>
+
+</section>
+
+</main>
+
+
+<script>
+
+const from = localStorage.getItem("from") || "Tiranë";
+const to = localStorage.getItem("to") || "Budva";
+const date = localStorage.getItem("date") || "-";
+
+const name = localStorage.getItem("passengerName") || "";
+const surname = localStorage.getItem("passengerSurname") || "";
+
+const seat = localStorage.getItem("seat") || "-";
+
+
+document.getElementById("ticket-from").innerText = from;
+
+document.getElementById("ticket-to").innerText = to;
+
+document.getElementById("ticket-date").innerText = date;
+
+document.getElementById("ticket-seat").innerText = seat;
+
+document.getElementById("ticket-name").innerText =
+    name + " " + surname;
+
+
+const ticketNumber =
+    "GG-" + Math.floor(100000 + Math.random() * 900000);
+
+document.getElementById("ticket-number").innerText =
+    ticketNumber;
+
+
+function goHome() {
+
+    window.location.href = "index.html";
+
+}
+
+</script>
+
+</body>
+</html>
